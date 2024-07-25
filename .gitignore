@@ -162,3 +162,9 @@ cython_debug/
 #.idea/
 
 #Just a comment
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

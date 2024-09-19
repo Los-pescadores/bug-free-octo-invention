@@ -1,10 +1,9 @@
 name: Merge con develop al encontrar "funcionalidad terminada"
 
 on:
-  workflow_run:
-    workflows: ["Python Tests"]  # Refers to the test workflow
-    types:
-      - completed
+  push:
+    branches:
+      - '**'
 
 jobs:
   detect-and-merge:

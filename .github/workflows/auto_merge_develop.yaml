@@ -1,0 +1,31 @@
+name: Merge con develop al encontrar "funcionalidad terminada"
+
+on:
+  push:
+    branches:
+      - '**'  
+jobs:
+  detect-and-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Revisar commit en todas las ramas
+        id: find_branch
+        run: |
+          for branch in $(git branch -r | grep -v '\->'); do
+            git checkout $branch
+            if git log -1 --pretty=format:"%s" | grep -q "Funcionalidad terminada"; then
+              echo "::set-output name=source-branch::$branch"
+              break
+            fi
+          done
+
+      - name: Merge the branch if a matching commit was found
+        if: steps.find_branch.outputs.source-branch != ''
+        uses: tukasz/direct-merge-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target-branch: develop
+          source-branch: ${{ steps.find_branch.outputs.source-branch }}

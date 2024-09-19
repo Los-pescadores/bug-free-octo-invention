@@ -1,9 +1,10 @@
 name: Merge con develop al encontrar "funcionalidad terminada"
 
 on:
-  push:
-    branches:
-      - '**'
+  workflow_run:
+    workflows: ["Python Tests"]
+    types:
+      - completed
 
 jobs:
   detect-and-merge:
@@ -14,6 +15,7 @@ jobs:
       pull-requests: write
       repository-projects: write
 
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3

@@ -25,6 +25,8 @@ jobs:
           git checkout -b $release_branch
           git push origin $release_branch
           echo "::set-output name=release-branch::$release_branch"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Authenticate Git operations
 
   run-tests:
     runs-on: ubuntu-latest
@@ -44,10 +46,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest unittest
+          pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest
+        run: python -m unittest
 
   merge-to-main:
     runs-on: ubuntu-latest
@@ -68,6 +70,8 @@ jobs:
           git checkout main
           git merge --no-ff ${{ needs.create-release-branch.outputs.release-branch }}
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Authenticate Git operations
 
   delete-release-branch:
     runs-on: ubuntu-latest
@@ -78,3 +82,5 @@ jobs:
       - name: Delete the release branch
         run: |
           git push origin --delete ${{ needs.create-release-branch.outputs.release-branch }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Authenticate Git operations

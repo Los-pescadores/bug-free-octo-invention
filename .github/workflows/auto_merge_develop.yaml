@@ -31,5 +31,5 @@ jobs:
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          target-branch: develop
+          target-branch: origin/develop
           source-branch: ${{ steps.find_branch.outputs.source-branch }}

@@ -6,7 +6,7 @@ on:
       - '**'
 
 jobs:
-  # Job 1: Run Python Tests
+  # Job 1: Ejecuta los tests
   test:
     runs-on: ubuntu-latest
 
@@ -23,7 +23,7 @@ jobs:
       - name: Run tests
         run: python -m unittest
 
-  # Job 2: Detect and Merge (dependent on test job)
+  # Job 2: Detecta ramas con commit de funcionalidad terminada y hace merge
   detect-and-merge:
     runs-on: ubuntu-latest
 

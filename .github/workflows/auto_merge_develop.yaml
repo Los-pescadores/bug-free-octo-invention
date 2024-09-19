@@ -15,7 +15,6 @@ jobs:
       pull-requests: write
       repository-projects: write
 
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
@@ -27,15 +26,15 @@ jobs:
             branch_name=$(echo $branch | sed 's#origin/##')  
             git checkout $branch_name
             if git log -1 --pretty=format:"%s" | grep -q "Funcionalidad terminada"; then
-              echo "::set-output name=source-branch::$branch_name"
+              echo "source-branch=$branch_name" >> $GITHUB_ENV
               break
             fi
           done
 
       - name: Merge the branch if a matching commit was found
-        if: steps.find_branch.outputs.source-branch != ''
+        if: env.source-branch != ''
         uses: tukasz/direct-merge-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           target-branch: develop
-          source-branch: ${{ steps.find_branch.outputs.source-branch }}
+          source-branch: ${{ env.source-branch }}

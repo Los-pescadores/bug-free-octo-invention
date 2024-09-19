@@ -30,6 +30,6 @@ jobs:
         if: steps.find_branch.outputs.source-branch != ''
         uses: tukasz/direct-merge-action@master
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           target-branch: develop
           source-branch: ${{ steps.find_branch.outputs.source-branch }}

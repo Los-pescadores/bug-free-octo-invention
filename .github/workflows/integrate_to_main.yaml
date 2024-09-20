@@ -87,7 +87,7 @@ jobs:
           git checkout main
           git merge --no-ff ${{ needs.create-release-branch.outputs.release-branch }}
           git push origin main
-          ggit push origin --delete release
+          git push origin --delete release
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

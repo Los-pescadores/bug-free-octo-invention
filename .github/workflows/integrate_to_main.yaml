@@ -32,6 +32,7 @@ jobs:
       - name: Create release branch
         id: create_release_branch
         run: |
+          git checkout develop
           release_branch="release"
           git checkout develop
           git checkout -b $release_branch

@@ -86,22 +86,6 @@ jobs:
         run: |
           git merge --no-ff ${{ needs.create-release-branch.outputs.release-branch }}
           git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-  delete-release-branch:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
-    needs: merge-to-main
-    if: success()
-
-    steps:
-      - name: Delete the release branch
-        run: |
           git push origin --delete ${{ needs.create-release-branch.outputs.release-branch }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

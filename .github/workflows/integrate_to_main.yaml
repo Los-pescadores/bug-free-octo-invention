@@ -34,6 +34,7 @@ jobs:
         run: |
           git checkout develop
           release_branch="release"
+          git checkout develop
           git checkout -b $release_branch
           git push origin $release_branch
           echo "::set-output name=release-branch::$release_branch"

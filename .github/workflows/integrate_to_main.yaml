@@ -5,7 +5,7 @@ on:
     branches:
       - develop
   workflow_run:
-    workflows: ['Merge con develop al encontrar "funcionalidad terminada"']  # Replace with the name of your auto-merge workflow
+    workflows: ['Merge con develop']
     types:
       - completed
       

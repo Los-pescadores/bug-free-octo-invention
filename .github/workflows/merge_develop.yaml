@@ -1,4 +1,4 @@
-name: Merge con develop al encontrar "funcionalidad terminada"
+name: Merge con develop
 
 on:
   push:

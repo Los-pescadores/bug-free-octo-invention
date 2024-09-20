@@ -83,16 +83,12 @@ jobs:
       - name: Fetch all branches
         run: git fetch --all  # Ensure all branches are fetched, including release
   
-      - name: Checkout the main branch
+      - name: Merge release branch into main
         run: |
           git checkout release
           git pull
           git checkout main
           git pull
-          
-  
-      - name: Merge release branch into main
-        run: |
           git merge --no-ff release
           git push origin main
           git push origin --delete release

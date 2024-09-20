@@ -9,3 +9,5 @@ class ExampleTestCase(unittest.TestCase):
     #Prueba para verificar que el caso funciona. El nombre del método usa el prefijo test_
     def test_something_1(self):
         self.assertEqual(1,1)   
+    def test_something_2(self):
+        self.assertEqual(0,0)   

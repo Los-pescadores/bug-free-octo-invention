@@ -10,4 +10,4 @@ class ExampleTestCase(unittest.TestCase):
     def test_something_1(self):
         self.assertEqual(1,1)   
     def test_something_2(self):
-        self.assertEqual(2,2)   
+        self.assertEqual(3,3)   

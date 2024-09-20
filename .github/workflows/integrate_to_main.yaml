@@ -89,7 +89,7 @@ jobs:
       - name: Merge release branch into main
         run: |
           git checkout main
-          git merge --no-ff ${{ needs.create-release-branch.outputs.release-branch }}
+          git merge --no-ff release
           git push origin main
           git push origin --delete release
 

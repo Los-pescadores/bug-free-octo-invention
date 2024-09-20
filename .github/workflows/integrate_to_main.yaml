@@ -86,12 +86,14 @@ jobs:
       - name: Checkout the main branch
         run: |
           git checkout release
+          git pull
           git checkout main
+          git pull
           
   
       - name: Merge release branch into main
         run: |
-          git merge --no-ff release  # Merging the fetched remote release branch
+          git merge --no-ff release
           git push origin main
           git push origin --delete release
   

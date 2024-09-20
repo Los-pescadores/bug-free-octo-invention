@@ -8,8 +8,12 @@ on:
 jobs:
   create-release-branch:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     steps:
+    
       - name: Check out the repository
         uses: actions/checkout@v3
 
@@ -75,6 +79,10 @@ jobs:
 
   delete-release-branch:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     needs: merge-to-main
     if: success()
 

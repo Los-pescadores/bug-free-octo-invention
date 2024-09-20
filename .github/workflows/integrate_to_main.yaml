@@ -16,6 +16,9 @@ jobs:
     
       - name: Check out the repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
 
       - name: Set up Git user
         run: |
@@ -30,8 +33,7 @@ jobs:
           git push origin $release_branch
           echo "::set-output name=release-branch::$release_branch"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Authenticate Git operations
-
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
   run-tests:
     runs-on: ubuntu-latest
     needs: create-release-branch
@@ -43,7 +45,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10.14' # Use the correct Python version
+          python-version: '3.10.14'
 
       - name: Install requirements
         run: |
@@ -73,7 +75,7 @@ jobs:
           git merge --no-ff ${{ needs.create-release-branch.outputs.release-branch }}
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Authenticate Git operations
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
   delete-release-branch:
     runs-on: ubuntu-latest
@@ -89,4 +91,4 @@ jobs:
         run: |
           git push origin --delete ${{ needs.create-release-branch.outputs.release-branch }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Authenticate Git operations
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
